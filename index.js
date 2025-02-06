@@ -1,8 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose"
-//import jwt from "jsonwebtoken"; 
+import jwt from "jsonwebtoken"; 
 import dotenv from "dotenv";
+import userRouter from "./Router/UserRouter.js";
 
 
 dotenv.config();
@@ -10,7 +11,7 @@ dotenv.config();
 const app=express();
 app.use(bodyParser.json());
 
- app.use((req,res,next)=>{
+app.use((req,res,next)=>{
     
     let token=req.header  //midleware webtoken reading
     ("Authorization")
@@ -38,7 +39,7 @@ connection.once("open",()=>{
 })
 
 
-//app.use("/api/user",userRouter);
+app.use("/api/user",userRouter);
 
 
 
