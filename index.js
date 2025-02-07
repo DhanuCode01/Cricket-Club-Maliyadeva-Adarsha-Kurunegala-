@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 import jwt from "jsonwebtoken"; 
 import dotenv from "dotenv";
 import userRouter from "./Router/UserRouter.js";
+import paymentRouter from "./Router/PaymentRouter.js"
 
 
 dotenv.config();
@@ -40,6 +41,7 @@ connection.once("open",()=>{
 
 
 app.use("/api/user",userRouter);
+app.use("/api/payment",paymentRouter);
 
 
 

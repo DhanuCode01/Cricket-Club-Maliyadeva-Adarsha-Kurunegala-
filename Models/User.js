@@ -32,6 +32,9 @@ const userSchema=new  mongoose.Schema({
         type:String,
         required:true
     },
+    Team:{      //Classification by age gap
+        type:String
+    },
     profilePicture:{
         type:String,
         required:true,
