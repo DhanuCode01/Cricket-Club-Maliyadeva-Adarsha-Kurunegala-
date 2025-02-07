@@ -81,14 +81,35 @@ export async function updatePayment(req,res) {         //update entered payment
                     message:"You are not authorized to perform this action"
 
                 })
-                return
+                return;
             }
 
-     }catch(error){  
-        console.log(error);                                                    //If the lines are not running, it is a connection error.
+     }catch(error){                                                      //If the lines are not running, it is a connection error.
         res.status(500).json({
            error:"database connection unsuccessfully"})
         }
 
 }
 
+export async function getHalfpaid(req,res){           //filter Haif Paid Student
+
+    isToken(req,res);                                   //check if you have token
+    try{
+                if (req.user.type =="coach"){                       // //check  authorization
+                    const payments=await payment.find({ fee: { $ne: 5000 } });           //Payment fee not equal to 5000   
+                    res.status(200).json(payments);                         
+                
+
+                }else{
+                    res.status(403).json(
+                        {error:"your not authorized to perform this acction"})
+
+                    return;
+                }
+
+    }catch(error){                                                      //If the lines are not running, it is a connection error.
+        console.log(error);
+        res.status(500).json({
+           error:"database connection un successfully"})
+    }
+}
