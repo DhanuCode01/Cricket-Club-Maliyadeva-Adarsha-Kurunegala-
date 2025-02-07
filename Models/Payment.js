@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 
 const paymentSchema=new  mongoose.Schema({
+    email:{             //paid Student e-mail
+        type:String,
+        required:true ,
+        unique:true         //Only one student can be per email.
+    },              
     fee:{    //class feeData Structure
         type:Number,//Data Type
         required:true,//All users Definetly has fee

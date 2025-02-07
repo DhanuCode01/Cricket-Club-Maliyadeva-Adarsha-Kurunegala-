@@ -3,7 +3,7 @@ import { isToken } from "../Validation/TokenValidation.js";
 
 
 
-export async function addPayment(req,res){              //add payment
+export async function addPayment(req,res){              //add payment       //Making a payment for the first time
     isToken(req,res);                                   //check if you have token
 
     
