@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import userRouter from "./Router/UserRouter.js";
 import paymentRouter from "./Router/PaymentRouter.js"
-
+import attendanceRouter from "./Router/AttendanceRouter.js";
 
 dotenv.config();
 
@@ -42,6 +42,7 @@ connection.once("open",()=>{
 
 app.use("/api/user",userRouter);
 app.use("/api/payment",paymentRouter);
+app.use("/api/attendance",attendanceRouter);
 
 
 

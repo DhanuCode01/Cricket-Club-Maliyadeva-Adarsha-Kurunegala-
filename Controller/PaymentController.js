@@ -1,5 +1,6 @@
 import payment from "../Models/Payment.js";
 import { isToken } from "../Validation/TokenValidation.js";
+import users from "../Models/User.js";
 
 
 
@@ -20,12 +21,22 @@ export async function addPayment(req,res){              //add payment       //Ma
 
        try {
 
-        await payments.save();                      //save data    
-        res.status(200).json({
-            Message:"payment Saved Successfully"})
+        const user =await users.findOne({email:req.body.email});   //Is there a user with this email address?
+        if(user != null){
+                await payments.save();                      //save data    
+                res.status(200).json({
+                    Message:"payment Saved Successfully"})
+                
+                return;
+        }else{
+                res.status(404).json({error:"pleace check email "});
+
+                return;
+        }
 
         
-        }catch(error){                                                              //If the lines are not running, it is a connection error.
+        
+        }catch(error){                                                                //If the lines are not running, it is a connection error.
             res.status(500).json({error:"payment Saved Unsuccessfully"})
         }
      
@@ -98,7 +109,8 @@ export async function getHalfpaid(req,res){           //filter Haif Paid Student
                 if (req.user.type =="coach"){                       // //check  authorization
                     const payments=await payment.find({ fee: { $ne: 5000 } });           //Payment fee not equal to 5000   
                     res.status(200).json(payments);                         
-                
+                    
+                    return;
 
                 }else{
                     res.status(403).json(
@@ -113,3 +125,5 @@ export async function getHalfpaid(req,res){           //filter Haif Paid Student
            error:"database connection un successfully"})
     }
 }
+
+ 
